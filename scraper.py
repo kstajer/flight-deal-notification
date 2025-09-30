@@ -14,7 +14,7 @@ from openai import OpenAI
 
 BASE_URL = "https://www.fly4free.pl/forum/"
 IMG_DIR = "img"
-TIMEOUT_IN_MINUTES = 60
+TIMEOUT_IN_MINUTES = 600
 
 prompt = """
 You will receive some information about a flight deal. Your task is to extract the required information and return it. All information should be in English.
@@ -49,6 +49,7 @@ def main():
     print("csv file imported")
 
     new_posts = check_for_new_posts()
+    new_posts = new_posts[~new_posts.url.isin(df.url.tolist())]
     if new_posts.empty:
         print("No new posts found.")
         return 
