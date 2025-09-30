@@ -9,7 +9,6 @@ from email.mime.text import MIMEText
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from google.colab import userdata
 from openai import OpenAI
 
 
