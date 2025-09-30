@@ -203,7 +203,11 @@ def _get_post_details(url):
 
 
 def _generate_notification_text(data):
-    return f'A flight from {data["from"].replace(',', '')} to {data["to"].replace(',', '')} in {data['when']} for {data["price"]}'
+    fr = data["from"].replace(',', '')
+    to = data["to"].replace(',', '')
+    when = data['when']
+    price = data["price"]
+    return f'A flight from {fr} to {to} in {when} for {price}'
 
 def _encode_image(path):
     with open(path, "rb") as f:
