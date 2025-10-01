@@ -15,6 +15,7 @@ from openai import OpenAI
 BASE_URL = "https://www.fly4free.pl/forum/"
 IMG_DIR = "img"
 TIMEOUT_IN_MINUTES = 600
+TZ_OFFSET = 2
 
 prompt = """
 You will receive some information about a flight deal. Your task is to extract the required information and return it. All information should be in English.
@@ -103,7 +104,7 @@ def check_for_new_posts():
     for x in titles:
         url = x.get('href')
         created_at = _convert_pl_timestamp(x.get('title'))
-        if created_at is not None and created_at > datetime.now() - timedelta(minutes=TIMEOUT_IN_MINUTES):
+        if created_at is not None and ((created_at - timedelta(hours=TZ_OFFSET)) > (datetime.now() - timedelta(minutes=TIMEOUT_IN_MINUTES))):
             post_content, img_count = _get_post_details(url)
             data.append({'title': x.text, "created_at": created_at, 'url': url, 'content': post_content, 'img_count': int(img_count), "response": None, "checked": 0})
         else:
